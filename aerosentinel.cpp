@@ -10,6 +10,23 @@ bool isVibrationDangerous(float vibration) {
     return vibration > 7;
 }
 
+void displayRiskLevel(int risk) {
+
+    std::cout << "\nDetected risk count: " << risk;
+    if(risk==0) {
+        std::cout << "\nRisk level: NORMAL\n";
+    }
+    else if(risk==1) {
+        std::cout << "\nRisk level: LOW\n";
+    }
+    else if(risk==2) {
+        std::cout << "\nRisk level: HIGH\n";
+    }
+    else {
+        std::cout << "\nRisk level: CRITICAL\n";
+    }
+}
+
 int main() {
     float engTemp;
     float oil;
@@ -34,21 +51,11 @@ int main() {
         std::cout << "\nVibration level is at critical level!";
         risk += 1;
     }
+    
     if(risk==0) {
         std::cout << "\nFlight conditions are normal. ";
     }
-    std::cout << "\nDetected risk count: " << risk;
-    if(risk==0) {
-        std::cout << "\nRisk level: NORMAL\n";
-    }
-    else if(risk==1) {
-        std::cout << "\nRisk level: LOW\n";
-    }
-    else if(risk==2) {
-        std::cout << "\nRisk level: HIGH\n";
-    }
-    else {
-        std::cout << "\nRisk level: CRITICAL\n";
-    }
+    displayRiskLevel(risk);
+
     return 0;
 }
