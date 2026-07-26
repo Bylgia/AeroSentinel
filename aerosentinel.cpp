@@ -1,5 +1,15 @@
 #include <iostream>
 
+bool isEngineTemperatureDangerous(float temperature) {
+    return temperature > 900;
+}
+bool isOilPressureDangerous(float pressure) {
+    return pressure < 25;
+}
+bool isVibrationDangerous(float vibration) {
+    return vibration > 7;
+}
+
 int main() {
     float engTemp;
     float oil;
@@ -12,15 +22,15 @@ int main() {
     std::cout << "\nEnter vibration level: ";
     std::cin >> vib;
 
-    if(engTemp>900) {
+    if(isEngineTemperatureDangerous(engTemp)) {
         std::cout << "\nEngine temperature is at critical level!";
         risk += 1;
     }
-    if(oil<25) {
+    if(isOilPressureDangerous(oil)) {
         std::cout << "\nOil pressure is at critical level!";
         risk += 1;
     }
-    if(vib>7) {
+    if(isVibrationDangerous(vib)) {
         std::cout << "\nVibration level is at critical level!";
         risk += 1;
     }
