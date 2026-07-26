@@ -12,6 +12,9 @@ bool isVibrationDangerous(float vibration) {
 bool isFuelPressureDangerous(float pressure) {
     return pressure < 30;
 }
+bool isEngineRpmDangerous(float rpm) {
+    return rpm < 1000 || rpm > 5000;
+}
 
 void displayRiskLevel(int risk) {
 
@@ -31,6 +34,7 @@ void displayRiskLevel(int risk) {
 }
 
 int main() {
+    float engineRpm;
     float engTemp;
     float oil;
     float vib;
@@ -44,6 +48,8 @@ int main() {
     std::cin >> vib;
     std::cout << "\nEnter fuel pressure: ";
     std::cin >> fuelPressure;
+    std::cout << "\nEnter engine RPM: ";
+    std::cin >> engineRpm;
 
     if(isEngineTemperatureDangerous(engTemp)) {
         std::cout << "\nEngine temperature is at critical level!";
@@ -61,6 +67,10 @@ int main() {
         std::cout << "\nFuel pressure is at critical level!";
         risk += 1;
     }
+    if(isEngineRpmDangerous(engineRpm)) {
+        std::cout << "\nEngine RPM is outside the safe range!";
+        risk += 1;
+    }   
 
     if(risk==0) {
         std::cout << "\nFlight conditions are normal. ";
