@@ -27,6 +27,18 @@ int main() {
     if(risk==0) {
         std::cout << "\nFlight conditions are normal. ";
     }
-    std::cout << "\n Detected risk count: " << risk;
+    std::cout << "\nDetected risk count: " << risk;
+    if(risk==0) {
+        std::cout << "\nRisk level: NORMAL\n";
+    }
+    else if(risk==1) {
+        std::cout << "\nRisk level: LOW\n";
+    }
+    else if(risk==2) {
+        std::cout << "\nRisk level: HIGH\n";
+    }
+    else {
+        std::cout << "\nRisk level: CRITICAL\n";
+    }
     return 0;
 }
