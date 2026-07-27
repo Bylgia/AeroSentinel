@@ -58,6 +58,11 @@ int main() {
     std::cout << "\nHow many readings do you want to enter? ";
     std::cin >> readingCount;
 
+    if(readingCount <= 0) {
+        std::cout << "\nReading count must be greater than 0. \n";
+        return 1;
+    }
+
     for(int i = 0; i < readingCount; i++) {
     std::cout << "\nEnter engine temperature: ";
     std::cin >> reading.engineTemperature;
@@ -74,12 +79,18 @@ int main() {
     }
 
     std::cout << "\nStored sensor reading count: " << readings.size();
+
+    float maxEngineReading = readings[0].engineTemperature;
     
     for(int i = 0; i < readings.size(); i++) {
 
+        if (readings[i].engineTemperature > maxEngineReading) {
+        maxEngineReading = readings[i].engineTemperature;
+        }
+
         int risk = 0;
 
-        std::cout << "\n--- Reading " << i+1 << " ---";
+        std::cout << "\n\n--- Reading " << i+1 << " ---";
         if(isEngineTemperatureDangerous(readings[i].engineTemperature)) {
             std::cout << "\nEngine temperature is at critical level!";
             risk += 1;
@@ -106,5 +117,6 @@ int main() {
         displayRiskLevel(risk);
     }
 
+    std::cout << "\nHighest engine temperature: " << maxEngineReading << "\n";
     return 0;
 }
