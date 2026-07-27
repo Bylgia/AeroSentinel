@@ -81,12 +81,15 @@ int main() {
     std::cout << "\nStored sensor reading count: " << readings.size();
 
     float maxEngineReading = readings[0].engineTemperature;
+    float vibrationSum = 0;
     
     for(int i = 0; i < readings.size(); i++) {
 
         if (readings[i].engineTemperature > maxEngineReading) {
         maxEngineReading = readings[i].engineTemperature;
         }
+
+        vibrationSum += readings[i].vibration;
 
         int risk = 0;
 
@@ -117,6 +120,10 @@ int main() {
         displayRiskLevel(risk);
     }
 
+    float vibrationAverage = vibrationSum / readings.size();
+
     std::cout << "\nHighest engine temperature: " << maxEngineReading << "\n";
+    std::cout << "Average vibration level: " << vibrationAverage << "\n";
+    
     return 0;
 }
