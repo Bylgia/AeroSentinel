@@ -74,9 +74,24 @@ int analyzeReading(SensorReading reading) {
     return risk;
 }
 
+SensorReading getSensorReading() {
+    SensorReading reading;
+
+    std::cout << "\nEnter engine temperature: ";
+    std::cin >> reading.engineTemperature;
+    std::cout << "\nEnter oil pressure: ";
+    std::cin >> reading.oilPressure;
+    std::cout << "\nEnter vibration level: ";
+    std::cin >> reading.vibration;
+    std::cout << "\nEnter fuel pressure: ";
+    std::cin >> reading.fuelPressure;
+    std::cout << "\nEnter engine RPM: ";
+    std::cin >> reading.engineRpm;
+    return reading;
+}
+
 int main() {
 
-    SensorReading reading;
     std::vector<SensorReading> readings;
     int readingCount;
 
@@ -89,18 +104,7 @@ int main() {
     }
 
     for(int i = 0; i < readingCount; i++) {
-    std::cout << "\nEnter engine temperature: ";
-    std::cin >> reading.engineTemperature;
-    std::cout << "\nEnter oil pressure: ";
-    std::cin >> reading.oilPressure;
-    std::cout << "\nEnter vibration level: ";
-    std::cin >> reading.vibration;
-    std::cout << "\nEnter fuel pressure: ";
-    std::cin >> reading.fuelPressure;
-    std::cout << "\nEnter engine RPM: ";
-    std::cin >> reading.engineRpm;
-
-    readings.push_back(reading);
+    readings.push_back(getSensorReading());
     }
 
     std::cout << "\nStored sensor reading count: " << readings.size();
