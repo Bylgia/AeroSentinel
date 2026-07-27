@@ -1,19 +1,25 @@
 #include <iostream>
+const float MAX_ENGINE_TEMPERATURE = 900;
+const float MIN_OIL_PRESSURE = 25;
+const float MAX_VIBRATION_LEVEL = 7;
+const float MIN_FUEL_PRESSURE = 30;
+const float MIN_ENGINE_RPM = 1000;
+const float MAX_ENGINE_RPM = 5000;
 
 bool isEngineTemperatureDangerous(float temperature) {
-    return temperature > 900;
+    return temperature > MAX_ENGINE_TEMPERATURE;
 }
 bool isOilPressureDangerous(float pressure) {
-    return pressure < 25;
+    return pressure < MIN_OIL_PRESSURE;
 }
 bool isVibrationDangerous(float vibration) {
-    return vibration > 7;
+    return vibration > MAX_VIBRATION_LEVEL;
 }
 bool isFuelPressureDangerous(float pressure) {
-    return pressure < 30;
+    return pressure < MIN_FUEL_PRESSURE;
 }
 bool isEngineRpmDangerous(float rpm) {
-    return rpm < 1000 || rpm > 5000;
+    return rpm < MIN_ENGINE_RPM || rpm > MAX_ENGINE_RPM;
 }
 
 void displayRiskLevel(int risk) {
