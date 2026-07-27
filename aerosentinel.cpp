@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+
 const float MAX_ENGINE_TEMPERATURE = 900;
 const float MIN_OIL_PRESSURE = 25;
 const float MAX_VIBRATION_LEVEL = 7;
@@ -50,8 +52,14 @@ void displayRiskLevel(int risk) {
 int main() {
 
     SensorReading reading;
-    int risk=0;
-    std::cout << "Enter engine temperature: ";
+    std::vector<SensorReading> readings;
+    int readingCount;
+
+    std::cout << "\nHow many readings do you want to enter? ";
+    std::cin >> readingCount;
+
+    for(int i = 0; i < readingCount; i++) {
+    std::cout << "\nEnter engine temperature: ";
     std::cin >> reading.engineTemperature;
     std::cout << "\nEnter oil pressure: ";
     std::cin >> reading.oilPressure;
@@ -62,31 +70,41 @@ int main() {
     std::cout << "\nEnter engine RPM: ";
     std::cin >> reading.engineRpm;
 
-    if(isEngineTemperatureDangerous(reading.engineTemperature)) {
-        std::cout << "\nEngine temperature is at critical level!";
-        risk += 1;
+    readings.push_back(reading);
     }
-    if(isOilPressureDangerous(reading.oilPressure)) {
-        std::cout << "\nOil pressure is at critical level!";
-        risk += 1;
-    }
-    if(isVibrationDangerous(reading.vibration)) {
-        std::cout << "\nVibration level is at critical level!";
-        risk += 1;
-    }
-    if(isFuelPressureDangerous(reading.fuelPressure)) {
-        std::cout << "\nFuel pressure is at critical level!";
-        risk += 1;
-    }
-    if(isEngineRpmDangerous(reading.engineRpm)) {
-        std::cout << "\nEngine RPM is outside the safe range!";
-        risk += 1;
-    }   
 
-    if(risk==0) {
+    std::cout << "\nStored sensor reading count: " << readings.size();
+    
+    for(int i = 0; i < readings.size(); i++) {
+
+        int risk = 0;
+
+        std::cout << "\n--- Reading " << i+1 << " ---";
+        if(isEngineTemperatureDangerous(readings[i].engineTemperature)) {
+            std::cout << "\nEngine temperature is at critical level!";
+            risk += 1;
+        }
+        if(isOilPressureDangerous(readings[i].oilPressure)) {
+            std::cout << "\nOil pressure is at critical level!";
+            risk += 1;
+        }
+        if(isVibrationDangerous(readings[i].vibration)) {
+            std::cout << "\nVibration level is at critical level!";
+            risk += 1;
+        }
+        if(isFuelPressureDangerous(readings[i].fuelPressure)) {
+            std::cout << "\nFuel pressure is at critical level!";
+            risk += 1;
+        }
+        if(isEngineRpmDangerous(readings[i].engineRpm)) {
+            std::cout << "\nEngine RPM is outside the safe range!";
+            risk += 1;
+        }
+        if(risk==0) {
         std::cout << "\nFlight conditions are normal. ";
+        }
+        displayRiskLevel(risk);
     }
-    displayRiskLevel(risk);
 
     return 0;
 }
