@@ -49,6 +49,31 @@ void displayRiskLevel(int risk) {
     }
 }
 
+int analyzeReading(SensorReading reading) {
+    int risk = 0;
+        if(isEngineTemperatureDangerous(reading.engineTemperature)) {
+            std::cout << "\nEngine temperature is at critical level!";
+            risk += 1;
+        }
+        if(isOilPressureDangerous(reading.oilPressure)) {
+            std::cout << "\nOil pressure is at critical level!";
+            risk += 1;
+        }
+        if(isVibrationDangerous(reading.vibration)) {
+            std::cout << "\nVibration level is at critical level!";
+            risk += 1;
+        }
+        if(isFuelPressureDangerous(reading.fuelPressure)) {
+            std::cout << "\nFuel pressure is at critical level!";
+            risk += 1;
+        }
+        if(isEngineRpmDangerous(reading.engineRpm)) {
+            std::cout << "\nEngine RPM is outside the safe range!";
+            risk += 1;
+        }
+    return risk;
+}
+
 int main() {
 
     SensorReading reading;
@@ -92,29 +117,10 @@ int main() {
 
         vibrationSum += readings[i].vibration;
 
-        int risk = 0;
-
         std::cout << "\n\n--- Reading " << i+1 << " ---";
-        if(isEngineTemperatureDangerous(readings[i].engineTemperature)) {
-            std::cout << "\nEngine temperature is at critical level!";
-            risk += 1;
-        }
-        if(isOilPressureDangerous(readings[i].oilPressure)) {
-            std::cout << "\nOil pressure is at critical level!";
-            risk += 1;
-        }
-        if(isVibrationDangerous(readings[i].vibration)) {
-            std::cout << "\nVibration level is at critical level!";
-            risk += 1;
-        }
-        if(isFuelPressureDangerous(readings[i].fuelPressure)) {
-            std::cout << "\nFuel pressure is at critical level!";
-            risk += 1;
-        }
-        if(isEngineRpmDangerous(readings[i].engineRpm)) {
-            std::cout << "\nEngine RPM is outside the safe range!";
-            risk += 1;
-        }
+
+        int risk = analyzeReading(readings[i]);
+
         if(risk==0) {
             std::cout << "\nFlight conditions are normal. ";
         }
@@ -128,7 +134,7 @@ int main() {
 
     std::cout << "\nHighest engine temperature: " << maxEngineReading << "\n";
     std::cout << "Average vibration level: " << vibrationAverage << "\n";
-    std::cout << "Risk reading count: " << riskyReadingCount << "\n";
+    std::cout << "Risky reading count: " << riskyReadingCount << "\n";
 
     return 0;
 }
