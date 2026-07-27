@@ -6,6 +6,14 @@ const float MIN_FUEL_PRESSURE = 30;
 const float MIN_ENGINE_RPM = 1000;
 const float MAX_ENGINE_RPM = 5000;
 
+struct SensorReading {
+    float engineTemperature;
+    float oilPressure;
+    float vibration;
+    float fuelPressure;
+    float engineRpm;    
+};
+
 bool isEngineTemperatureDangerous(float temperature) {
     return temperature > MAX_ENGINE_TEMPERATURE;
 }
@@ -40,40 +48,37 @@ void displayRiskLevel(int risk) {
 }
 
 int main() {
-    float engineRpm;
-    float engTemp;
-    float oil;
-    float vib;
-    float fuelPressure;
+
+    SensorReading reading;
     int risk=0;
     std::cout << "Enter engine temperature: ";
-    std::cin >> engTemp;
+    std::cin >> reading.engineTemperature;
     std::cout << "\nEnter oil pressure: ";
-    std::cin >> oil;
+    std::cin >> reading.oilPressure;
     std::cout << "\nEnter vibration level: ";
-    std::cin >> vib;
+    std::cin >> reading.vibration;
     std::cout << "\nEnter fuel pressure: ";
-    std::cin >> fuelPressure;
+    std::cin >> reading.fuelPressure;
     std::cout << "\nEnter engine RPM: ";
-    std::cin >> engineRpm;
+    std::cin >> reading.engineRpm;
 
-    if(isEngineTemperatureDangerous(engTemp)) {
+    if(isEngineTemperatureDangerous(reading.engineTemperature)) {
         std::cout << "\nEngine temperature is at critical level!";
         risk += 1;
     }
-    if(isOilPressureDangerous(oil)) {
+    if(isOilPressureDangerous(reading.oilPressure)) {
         std::cout << "\nOil pressure is at critical level!";
         risk += 1;
     }
-    if(isVibrationDangerous(vib)) {
+    if(isVibrationDangerous(reading.vibration)) {
         std::cout << "\nVibration level is at critical level!";
         risk += 1;
     }
-    if(isFuelPressureDangerous(fuelPressure)) {
+    if(isFuelPressureDangerous(reading.fuelPressure)) {
         std::cout << "\nFuel pressure is at critical level!";
         risk += 1;
     }
-    if(isEngineRpmDangerous(engineRpm)) {
+    if(isEngineRpmDangerous(reading.engineRpm)) {
         std::cout << "\nEngine RPM is outside the safe range!";
         risk += 1;
     }   
