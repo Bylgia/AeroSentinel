@@ -90,6 +90,16 @@ SensorReading getSensorReading() {
     return reading;
 }
 
+float findMaxEngineTemperature(std::vector<SensorReading> readings) {
+    float maxEngineReading = readings[0].engineTemperature;
+    for(int i = 0; i < readings.size(); i++) {
+        if (readings[i].engineTemperature > maxEngineReading) {
+        maxEngineReading = readings[i].engineTemperature;
+        }
+    }
+    return maxEngineReading;
+}
+
 int main() {
 
     std::vector<SensorReading> readings;
@@ -109,15 +119,10 @@ int main() {
 
     std::cout << "\nStored sensor reading count: " << readings.size();
 
-    float maxEngineReading = readings[0].engineTemperature;
     float vibrationSum = 0;
     int riskyReadingCount= 0;
     
     for(int i = 0; i < readings.size(); i++) {
-
-        if (readings[i].engineTemperature > maxEngineReading) {
-        maxEngineReading = readings[i].engineTemperature;
-        }
 
         vibrationSum += readings[i].vibration;
 
@@ -125,7 +130,7 @@ int main() {
 
         int risk = analyzeReading(readings[i]);
 
-        if(risk==0) {
+        if(risk == 0) {
             std::cout << "\nFlight conditions are normal. ";
         }
         displayRiskLevel(risk);
@@ -133,10 +138,10 @@ int main() {
             riskyReadingCount++;
         }
     }
-
+    float highestEngineTemperature = findMaxEngineTemperature(readings);
     float vibrationAverage = vibrationSum / readings.size();
 
-    std::cout << "\nHighest engine temperature: " << maxEngineReading << "\n";
+    std::cout << "\nHighest engine temperature: " << highestEngineTemperature << "\n";
     std::cout << "Average vibration level: " << vibrationAverage << "\n";
     std::cout << "Risky reading count: " << riskyReadingCount << "\n";
 
