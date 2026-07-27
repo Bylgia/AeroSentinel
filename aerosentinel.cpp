@@ -82,6 +82,7 @@ int main() {
 
     float maxEngineReading = readings[0].engineTemperature;
     float vibrationSum = 0;
+    int riskyReadingCount= 0;
     
     for(int i = 0; i < readings.size(); i++) {
 
@@ -115,15 +116,19 @@ int main() {
             risk += 1;
         }
         if(risk==0) {
-        std::cout << "\nFlight conditions are normal. ";
+            std::cout << "\nFlight conditions are normal. ";
         }
         displayRiskLevel(risk);
+        if (risk > 0) {
+            riskyReadingCount++;
+        }
     }
 
     float vibrationAverage = vibrationSum / readings.size();
 
     std::cout << "\nHighest engine temperature: " << maxEngineReading << "\n";
     std::cout << "Average vibration level: " << vibrationAverage << "\n";
-    
+    std::cout << "Risk reading count: " << riskyReadingCount << "\n";
+
     return 0;
 }
