@@ -35,13 +35,13 @@ bool isEngineRpmDangerous(float rpm) {
 void displayRiskLevel(int risk) {
 
     std::cout << "\nDetected risk count: " << risk;
-    if(risk==0) {
+    if(risk == 0) {
         std::cout << "\nRisk level: NORMAL\n";
     }
-    else if(risk==1) {
+    else if(risk == 1) {
         std::cout << "\nRisk level: LOW\n";
     }
-    else if(risk==2) {
+    else if(risk == 2) {
         std::cout << "\nRisk level: HIGH\n";
     }
     else {
@@ -100,6 +100,15 @@ float findMaxEngineTemperature(std::vector<SensorReading> readings) {
     return maxEngineReading;
 }
 
+float calculateAverageVibration(std::vector<SensorReading> readings) {
+    float vibrationSum = 0;
+    for(int i = 0; i < readings.size(); i++) {
+        vibrationSum += readings[i].vibration;
+    }
+    float vibrationAverage = vibrationSum / readings.size();
+    return vibrationAverage;
+}
+
 int main() {
 
     std::vector<SensorReading> readings;
@@ -119,12 +128,9 @@ int main() {
 
     std::cout << "\nStored sensor reading count: " << readings.size();
 
-    float vibrationSum = 0;
-    int riskyReadingCount= 0;
+    int riskyReadingCount = 0;
     
     for(int i = 0; i < readings.size(); i++) {
-
-        vibrationSum += readings[i].vibration;
 
         std::cout << "\n\n--- Reading " << i+1 << " ---";
 
@@ -139,7 +145,7 @@ int main() {
         }
     }
     float highestEngineTemperature = findMaxEngineTemperature(readings);
-    float vibrationAverage = vibrationSum / readings.size();
+    float vibrationAverage = calculateAverageVibration(readings);
 
     std::cout << "\nHighest engine temperature: " << highestEngineTemperature << "\n";
     std::cout << "Average vibration level: " << vibrationAverage << "\n";
